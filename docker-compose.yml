@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: kaggle_pg
+    environment:
+      POSTGRES_USER: ${PG_USER:-kaggle}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-kaggle_pw}
+      POSTGRES_DB: ${PG_DB:-kaggle_dw}
+    ports:
+      - "${PG_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pg_data:

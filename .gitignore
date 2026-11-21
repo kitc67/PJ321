@@ -1,0 +1,11 @@
+# ห้าม commit ข้อมูลลับ
+credentials.json
+.env
+
+# ข้อมูลดิบ (ขนาดใหญ่ ดาวน์โหลดใหม่จาก Kaggle)
+data/
+
+__pycache__/
+*.pyc
+.venv/
+outputs/
